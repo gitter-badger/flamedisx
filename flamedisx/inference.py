@@ -682,6 +682,10 @@ class ScipyIntervalObjective(IntervalObjective, ScipyObjective):
 class NonlinearIntervalObjective(NonlinearObjective):
     """IntervalObjective using Scipy trust-constr optimizer with non-linear
     constraints"""
+
+    # We can guesstimate from the bestfit and Hessian
+    require_complete_guess = False
+
     def __init__(self, *,
                          target_parameter,
                          bestfit,
