@@ -8,7 +8,6 @@ import tensorflow as tf
 import typing as ty
 
 import pdb
-from IPython import embed
 export, __all__ = fd.exporter()
 
 o = tf.newaxis
@@ -138,7 +137,7 @@ class LogLikelihood:
                                  **{p_name: par for p_name, par in common_param_specs.items()
                                  if p_name in defaults_in_sources[sname].keys()})
             for sname, s in self.sources.items()}
-        
+
         # Not used, but useful for mu smoothness diagnosis
         self.param_specs = common_param_specs
 
@@ -342,7 +341,7 @@ class LogLikelihood:
         ll = self._log_likelihood_inner(
             i_batch, params_unstacked, dsetname, data_tensor, batch_info)
         #pdb.set_trace()
-        
+
         # Autodifferentiation. This is why we use tensorflow:
         grad = tf.gradients(ll, grad_par_stack)[0]
         if second_order:
@@ -381,7 +380,7 @@ class LogLikelihood:
 
             #####
             # how to print values of rate_mult and dr?
-            
+
             #tf.print(dr)
             #print('blah')
             #pdb.set_trace()
@@ -392,7 +391,7 @@ class LogLikelihood:
                      batch_size - n_padding,
                      batch_size)
         ll = tf.reduce_sum(tf.math.log(drs[:n]))
-        
+
         # Add mu once (to the first batch)
         # and constraint really only once (to first batch of first dataset)
         ll += tf.where(tf.equal(i_batch, tf.constant(0, dtype=fd.int_type())),
