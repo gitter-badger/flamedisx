@@ -763,6 +763,13 @@ class NonlinearIntervalObjective(NonlinearObjective):
                 self.guess = {**bestfit,
                               **{self.target_parameter: tp_guess},
                               **self.guess}
+                self._guess_vect = self._dict_to_array(self.guess)
+                # Convert bounds to normed space
+                self.normed_bounds = dict()
+                for k, tup in self.bounds.items():
+                    self.normed_bounds[k] = tuple([b / self.guess[k]
+                                                if b is not None else b
+                                                for b in tup])
 
     def t_ppf(self, target_param_value):
         """Return critical value given parameter value and critical
