@@ -448,8 +448,6 @@ class NonlinearObjective(Objective):
     defined by likelihood ratio.
     """
 
-    require_complete_guess = False
-
     # TODO: Fix callback
     # Callback function to capture intermediate states of optimizer
     #def fishPath(self, a, b):
